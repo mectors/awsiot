@@ -1,0 +1,9 @@
+*.snap
+prime
+parts
+stage
+tmp
+.remote-sync.json
+test.sh
+awscerts
+./*.json

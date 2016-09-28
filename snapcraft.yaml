@@ -1,0 +1,29 @@
+name: awsiot
+version: 0.1
+summary: Automatically register your device with AWS IoT.
+description: Automatically registers your device with AWS IoT so you can send data to the cloud. This generates automatically a device, a policy, and certificates so you don't have to.
+confinement: strict
+grade: stable
+
+apps:
+  init:
+    command: bin/node register.js
+    plugs: [content, network]
+slots:
+ awscerts:
+   content: awscerts
+   interface: content
+   read:
+     - /
+parts:
+  awscli:
+    plugin: python3
+    python-packages: [awscli]
+  awsiotsdk:
+    plugin: nodejs
+    node-packages: [aws-iot-device-sdk,randomstring,shelljs]
+  move:
+    plugin: dump
+    source: src
+    filesets:
+      policy.json: conf/policy.json
