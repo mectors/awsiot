@@ -33,7 +33,7 @@ console.log(cmd);
 var output = shell.exec(cmd, {silent:false}).output;
 
 // Create a policy
-var cmd = snap + "/bin/aws iot create-policy --policy-name "+thingname+"policy --policy-document file://conf/policy.json > "+common+"/cpresponse.json";
+var cmd = snap + "/bin/aws iot create-policy --policy-name "+thingname+"policy --policy-document file://policy.json > "+common+"/cpresponse.json";
 console.log(cmd);
 var output = shell.exec(cmd, {silent:false}).output;
 

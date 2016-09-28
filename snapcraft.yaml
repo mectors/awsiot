@@ -7,7 +7,7 @@ grade: stable
 
 apps:
   init:
-    command: bin/node register.js
+    command: init.sh
     plugs: [content, network]
 slots:
  awscerts:
@@ -21,9 +21,11 @@ parts:
     python-packages: [awscli]
   awsiotsdk:
     plugin: nodejs
-    node-packages: [aws-iot-device-sdk,randomstring,shelljs]
+    node-packages: [aws-iot-device-sdk, randomstring, shelljs]
   move:
     plugin: dump
     source: src
     filesets:
-      policy.json: conf/policy.json
+      policy.json: policy.json
+      register.js: register.js
+      init.sh: init.sh

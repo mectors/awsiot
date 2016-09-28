@@ -1,7 +1,7 @@
 # AWS IoT Automatic Device Setup
 
 Run one time:
-  sudo /snap/bin/awsiot.init <key> <secret> <region>
+  /snap/bin/awsiot.init <key> <secret> <region>
 
 This will create a $SNAP_COMMON/awscerts directory. Create an AWS policy, thing and certificates for this device.
 
