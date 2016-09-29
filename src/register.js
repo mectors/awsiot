@@ -11,7 +11,7 @@ var awscerts = common + '/awscerts';
 var awsenv = awscerts+'/awsenv.json';
 
 if (process.argv.length <= 3) {
-  console.log("Usage: " + __filename + " <KEY> <SECRET> <REGION>");
+  console.log("Usage: sudo /snap/bin/awsiot.init <KEY> <SECRET> <REGION>");
   process.exit(-1);
 }
 var key = process.argv[2];
