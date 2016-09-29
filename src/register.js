@@ -101,4 +101,4 @@ if (!fs.existsSync(certsdir + "/rootca.pem")){
 
 console.log("### DONE ###");
 console.log("The directory "+awscerts+" has all your certificates. If you want another snap to have access then do:");
-console.log(" sudo snap connect <yoursnap>:content awsiot:content");
+console.log(" sudo snap connect <yoursnap>:awscerts awsiot:awscerts");

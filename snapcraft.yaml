@@ -10,7 +10,7 @@ apps:
     command: bin/init.sh
     plugs: [network]
 slots:
- awscerts-slot:
+ awscerts:
    interface: content
    read:
      - awscerts
