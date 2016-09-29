@@ -7,17 +7,16 @@ grade: stable
 
 apps:
   init:
-    command: init.sh
-    plugs: [content, network]
+    command: bin/init.sh
+    plugs: [network]
 slots:
- awscerts:
-   content: awscerts
+ awscerts-slot:
    interface: content
    read:
-     - /
+     - awscerts
 parts:
   awscli:
-    plugin: python3
+    plugin: python
     python-packages: [awscli]
   awsiotsdk:
     plugin: nodejs
@@ -25,7 +24,8 @@ parts:
   move:
     plugin: dump
     source: src
-    filesets:
-      policy.json: policy.json
-      register.js: register.js
-      init.sh: init.sh
+    organize:
+      policy.json: conf/policy.json
+      rootca.pem: conf/rootca.pem
+      register.js: bin/register.js
+      init.sh: bin/init.sh

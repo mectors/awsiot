@@ -4,7 +4,8 @@
 var fs = require('fs');
 var common   = process.env.SNAP_COMMON;
 var snap = process.env.SNAP;
-var randomstring = require("randomstring");
+var shell = require(snap+'/lib/node_modules/shelljs');
+var randomstring = require(snap+"/lib/node_modules/randomstring");
 var thingname = randomstring.generate(8);
 var awscerts = common + '/awscerts';
 var awsenv = awscerts+'/awsenv.json';
@@ -27,13 +28,12 @@ process.env['AWS_DEFAULT_REGION'] = region;
 
 
 // Create a thing
-var shell = require('shelljs');
 var cmd = snap + "/bin/aws iot create-thing --thing-name "+thingname+" --attribute-payload attributes={creator=aws.snap} > "+common+"/ctresponse.json";
 console.log(cmd);
 var output = shell.exec(cmd, {silent:false}).output;
 
 // Create a policy
-var cmd = snap + "/bin/aws iot create-policy --policy-name "+thingname+"policy --policy-document file://policy.json > "+common+"/cpresponse.json";
+var cmd = snap + "/bin/aws iot create-policy --policy-name "+thingname+"policy --policy-document file://"+snap+"/conf/policy.json > "+common+"/cpresponse.json";
 console.log(cmd);
 var output = shell.exec(cmd, {silent:false}).output;
 
@@ -93,8 +93,12 @@ stream.write(certificates.keyPair.PrivateKey);
 stream.end();
 console.log("wrote "+ certsdir + "/private.key");
 
-var rootca = "conf/rootca.pem";
+var rootca = snap+"/conf/rootca.pem";
 if (!fs.existsSync(certsdir + "/rootca.pem")){
    fs.createReadStream(rootca).pipe(fs.createWriteStream(certsdir + "/rootca.pem"));
    console.log("moved "+ certsdir + "/rootca.pem");
 }
+
+console.log("### DONE ###");
+console.log("The directory "+awscerts+" has all your certificates. If you want another snap to have access then do:");
+console.log(" sudo snap connect <yoursnap>:content awsiot:content");

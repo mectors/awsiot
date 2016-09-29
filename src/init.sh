@@ -1,2 +1,2 @@
 #!/bin/sh
-$SNAP/bin/node $SNAP/register.js
+$SNAP/bin/node $SNAP/bin/register.js "$@"
