@@ -1,14 +1,9 @@
 # AWS IoT Automatic Device Setup
 
 Run one time:
-  sudo /snap/bin/awsiot.init <key> <secret> <region>
+  /snap/bin/awsiot.init <key> <secret> <region>
 
 This will create a $SNAP_COMMON/awscerts directory. Create an AWS policy, thing and certificates for this device.
-
-Afterwards you can use:
-  sudo snap connect <othersnap>:awscerts awsiot:awscerts
-
-This will allow other snaps to read the AWS IoT certificates and endpoint associated with your device.
 
 Your device will automatically get a random 8 character thing name. You can find in the $SNAP_COMMON/awscerts directory:
 the certificate:               certificate.crt

@@ -9,11 +9,6 @@ apps:
   init:
     command: bin/init.sh
     plugs: [network]
-slots:
- awscerts:
-   interface: content
-   read:
-     - awscerts
 parts:
   awscli:
     plugin: python

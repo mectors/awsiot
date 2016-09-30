@@ -2,21 +2,21 @@
 
 // Write creatething.json - TODO make thingname configurable
 var fs = require('fs');
-var common   = process.env.SNAP_COMMON;
-var snap = process.env.SNAP;
+
+if (process.argv.length <= 7) {
+  console.log("Usage: /snap/bin/awsiot.init <KEY> <SECRET> <REGION>");
+  process.exit(-1);
+}
+var common   = process.argv[2];
+var snap = process.argv[3];
+var key = process.argv[4];
+var secret = process.argv[5];
+var region = process.argv[6];
 var shell = require(snap+'/lib/node_modules/shelljs');
 var randomstring = require(snap+"/lib/node_modules/randomstring");
 var thingname = randomstring.generate(8);
 var awscerts = common + '/awscerts';
 var awsenv = awscerts+'/awsenv.json';
-
-if (process.argv.length <= 3) {
-  console.log("Usage: sudo /snap/bin/awsiot.init <KEY> <SECRET> <REGION>");
-  process.exit(-1);
-}
-var key = process.argv[2];
-var secret = process.argv[3];
-var region = process.argv[4];
 
 // Read and set AWS credentials
 if (!fs.existsSync(awscerts)){
@@ -26,6 +26,7 @@ process.env['AWS_ACCESS_KEY_ID'] = key;
 process.env['AWS_SECRET_ACCESS_KEY'] = secret;
 process.env['AWS_DEFAULT_REGION'] = region;
 
+console.log("Key:"+key+",region:"+region);
 
 // Create a thing
 var cmd = snap + "/bin/aws iot create-thing --thing-name "+thingname+" --attribute-payload attributes={creator=aws.snap} > "+common+"/ctresponse.json";
