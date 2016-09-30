@@ -73,7 +73,7 @@ console.log("wrote "+ certsdir + "/awskeys.json");
 
 // Write out the AWS IoT setup
 var stream = fs.createWriteStream(certsdir + "/awsiot.json");
-awsiotjson = "{\n\t\"host\": \"" + endpoint.endpointAddress + "\",\n\t\"port\": 8883,\n\t\"clientID\": \"" + thingname + "\",\n\t\"thingName\": \"" + thingname + "\",\n\t\"caCert\": \"awscerts/rootca.pem\",\n\t\"clientCert\": \"awscerts/certificate.crt\",\n\t\"privateKey\": \"awscerts/private.key\"\n}";
+awsiotjson = "{\n\t\"host\": \"" + endpoint.endpointAddress + "\",\n\t\"port\": 8883,\n\t\"clientID\": \"" + thingname + "\",\n\t\"thingName\": \"" + thingname + "\",\n\t\"caCert\": \"awscerts/rootca.pem\",\n\t\"clientCert\": \"awscerts/certificate.crt\",\n\t\"privateKey\": \"awscerts/private.key\",\n\t\"region\": \""+region+"\"\n}";
 stream.write(awsiotjson);
 stream.end();
 console.log("wrote "+ certsdir + "/awsiot.json");
