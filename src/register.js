@@ -3,12 +3,12 @@
 // Write creatething.json - TODO make thingname configurable
 var fs = require('fs');
 
-if (process.argv.length <= 7) {
-  console.log("Usage: /snap/bin/awsiot.init <KEY> <SECRET> <REGION>");
+if (process.argv.length <= 5) {
+  console.log("Usage: sudo /snap/bin/awsiot.init <KEY> <SECRET> <REGION>");
   process.exit(-1);
 }
-var common   = process.argv[2];
-var snap = process.argv[3];
+var snap = process.argv[2];
+var common = process.argv[3];
 var key = process.argv[4];
 var secret = process.argv[5];
 var region = process.argv[6];
@@ -101,5 +101,4 @@ if (!fs.existsSync(certsdir + "/rootca.pem")){
 }
 
 console.log("### DONE ###");
-console.log("The directory "+awscerts+" has all your certificates. If you want another snap to have access then do:");
-console.log(" sudo snap connect <yoursnap>:awscerts awsiot:awscerts");
+console.log("The directory "+awscerts+" has all your certificates.");
