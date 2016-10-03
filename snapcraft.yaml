@@ -9,6 +9,10 @@ apps:
   init:
     command: bin/init.sh
     plugs: [network]
+  run:
+    command: bin/run.sh
+    daemon: simple
+    plugs: [network]
 parts:
   awscli:
     plugin: python
@@ -24,3 +28,7 @@ parts:
       rootca.pem: conf/rootca.pem
       register.js: bin/register.js
       init.sh: bin/init.sh
+      run.sh: bin/run.sh
+  mqttawsiot:
+    plugin: go
+    source: src/mqttawsiot

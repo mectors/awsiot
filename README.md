@@ -1,6 +1,12 @@
-# AWS IoT Automatic Device Setup
+# AWS IoT Automatic Device Setup and MQTT wrapper
 
-Run one time:
+A run daemon will be automatically started. However it will fail if you don't run awsiot.init first and create cloud credentials.
+
+This daemon will listen on a local MQTT server on topic cloud/aws/out/# [where # is a wildcard for any other topics]. If a message is received then it will send it to the AWS cloud to the same topic, e.g. cloud/aws/out/my/data/stream.
+
+The same is try for the reverse. If send from cloud/aws/in/# then it will be send to the local MQTT server.
+
+To set up, run one time:
   sudo /snap/bin/awsiot.init <key> <secret> <region>
 
 This will create a $SNAP_COMMON/awscerts directory. Create an AWS policy, thing and certificates for this device.
