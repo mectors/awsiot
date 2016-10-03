@@ -9,6 +9,10 @@ The same is try for the reverse. If send from cloud/aws/in/# then it will be sen
 To set up, run one time:
   sudo /snap/bin/awsiot.init <key> <secret> <region>
 
+Afterwards restart the service via:
+  sudo snap disable awsiot
+  sudo snap enable awsiot
+
 This will create a $SNAP_COMMON/awscerts directory. Create an AWS policy, thing and certificates for this device.
 
 Your device will automatically get a random 8 character thing name. You can find in the $SNAP_COMMON/awscerts directory:

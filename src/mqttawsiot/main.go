@@ -37,7 +37,7 @@ func NewTlsConfig() *tls.Config {
 	if err == nil {
 		certpool.AppendCertsFromPEM(pemCerts)
 	} else {
-		fmt.Println("Please make sure you run sudo /snap/bin/awsiot.init <access key> <secret key> <region> before running this command.")
+		fmt.Println("Please make sure you run sudo /snap/bin/awsiot.init <access key> <secret key> <region> before running this command.\nAfterwards restart the service via\n\tsudo snap disable awsiot\n\tsudo snap enable awsiot")
 		panic(err)
 	}
 
