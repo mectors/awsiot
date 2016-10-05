@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"flag"
 	"os"
-	"os/signal"
 	"crypto/tls"
 	"crypto/x509"
   "io/ioutil"
 	"encoding/json"
 	"strconv"
+	"time"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 )
 
@@ -92,9 +92,7 @@ func check(e error) {
 
 func main() {
 
-	// Set up channel on which to send signal notifications.
-	sigc := make(chan os.Signal, 1)
-	signal.Notify(sigc, os.Interrupt, os.Kill)
+	flag.Parse()
 
 	// Prepare AWS secure connection to MQTT
 	tlsconfig := NewTlsConfig()
@@ -103,7 +101,7 @@ func main() {
 		fmt.Println("Please make sure you run sudo /snap/bin/awsiot.init <access key> <secret key> <region> before running this command.")
 		panic(err)
 	}
-  var dat map[string]interface{}
+  var dat map[string]	interface{}
 	err = json.Unmarshal(awsiotjson, &dat)
 	check(err)
 	var connection = "ssl://"+dat["host"].(string)+":"+strconv.FormatFloat(dat["port"].(float64), 'f', -1, 64)
@@ -159,6 +157,18 @@ func main() {
   fmt.Println("Published to:"+topic+" that we are listening on:"+outtopic)
 
 	// loop while waiting for commands to come in
-	// Wait for receiving a signal.
-	<-sigc
+	for {
+		if (!Clocal.IsConnected()) {
+			if token := Clocal.Connect(); token.Wait() && token.Error() != nil {
+		    panic(token.Error())
+		  }
+		}
+		if (!Caws.IsConnected()) {
+			if token := Caws.Connect(); token.Wait() && token.Error() != nil {
+		    panic(token.Error())
+		  }
+		}
+		time.Sleep(1000 * time.Millisecond)
+	}
+
 }
